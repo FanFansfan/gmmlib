@@ -324,6 +324,9 @@ extern void CpuSwizzleBlt(CPU_SWIZZLE_BLT_SURFACE *pDest, CPU_SWIZZLE_BLT_SURFAC
     #include <intrin.h>
 #elif defined(__ARM_ARCH)
     #include <sse2neon.h>
+#elif defined(__loongarch64)
+    #define SIMDE_X86_SSE2_ENABLE_NATIVE_ALIASES
+    #include <simde/x86/sse2.h>
 #elif((defined __clang__) ||(__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)))
     #include <cpuid.h>
     #include <x86intrin.h>
@@ -696,6 +699,9 @@ void CpuSwizzleBlt( // #########################################################
                     __cpuid(CpuInfo, 1);
                     StreamingLoadSupported = ((CpuInfo[2] & (1 << 19)) != 0); // ECX[19] = SSE4.1
                 #elif(defined(__ARM_ARCH))
+                    #define MOVNTDQA_R(Reg, Src) ((Reg) = (Reg))
+                    StreamingLoadSupported = 0;
+		#elif(defined(__loongarch64))
                     #define MOVNTDQA_R(Reg, Src) ((Reg) = (Reg))
                     StreamingLoadSupported = 0;
                 #elif((defined __clang__) || (__GNUC__ > 4) || (__GNUC__ == 4) && (__GNUC_MINOR__ >= 5))
@@ -1097,7 +1103,8 @@ void CpuSwizzleBlt( // #########################################################
 
             } // foreach(y)
 
-            _mm_sfence(); // Flush Non-Temporal Writes
+            //_mm_sfence(); // Flush Non-Temporal Writes
+            __sync_synchronize(); // simde有对应的__mm_sfence兼容，但没生效？
 
             #if(_MSC_VER)
                 #pragma warning(pop)

@@ -169,7 +169,7 @@ endif()
 if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch")
     set(GMMLIB_MARCH "armv8-a+fp+simd")
 elseif("${GMMLIB_MARCH}" STREQUAL "")
-    set(GMMLIB_MARCH "corei7")
+    set(GMMLIB_MARCH "native")
 endif()
 
 MESSAGE("platform: ${CMAKE_HOST_SYSTEM_NAME}")
@@ -441,6 +441,8 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR})
 
 if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch")
     include_directories(${GFX_DEVELOPMENT_DIR}/third_party/sse2neon)
+elseif(${CMAKE_SYSTEM_PROCESSOR} MATCHES "^loongarch")
+    include_directories(${GFX_DEVELOPMENT_DIR}/third_party/simde)
 endif()
 
 set(headers

@@ -77,25 +77,11 @@ else()
 
     # General optimization options
     -march=${GMMLIB_MARCH}
-    -mpopcnt
-    -msse
-    -msse2
-    -msse3
-    -mssse3
-    -msse4
-    -msse4.1
-    -msse4.2
-    -mfpmath=sse
     -finline-functions
     -fno-short-enums
     -Wa,--noexecstack
     -fno-strict-aliasing
     # Common defines
-    -DUSE_MMX
-    -DUSE_SSE
-    -DUSE_SSE2
-    -DUSE_SSE3
-    -DUSE_SSSE3
     # Other common flags
     -fstack-protector
     -fdata-sections
@@ -104,8 +90,6 @@ else()
     -fvisibility=hidden
     -fPIC
     -g
-    # -m32 or -m64
-    -m${GMMLIB_ARCH}
     )
 endif()
 
@@ -178,6 +162,6 @@ if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch")
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
 else()
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m${GMMLIB_ARCH}")
-    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m${GMMLIB_ARCH}")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
 endif()
