@@ -169,7 +169,7 @@ endif()
 if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch")
     set(GMMLIB_MARCH "armv8-a+fp+simd")
 elseif("${GMMLIB_MARCH}" STREQUAL "")
-    set(GMMLIB_MARCH "native")
+    set(GMMLIB_MARCH "la464")
 endif()
 
 MESSAGE("platform: ${CMAKE_HOST_SYSTEM_NAME}")

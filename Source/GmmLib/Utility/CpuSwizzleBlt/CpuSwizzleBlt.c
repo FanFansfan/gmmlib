@@ -326,6 +326,7 @@ extern void CpuSwizzleBlt(CPU_SWIZZLE_BLT_SURFACE *pDest, CPU_SWIZZLE_BLT_SURFAC
     #include <sse2neon.h>
 #elif defined(__loongarch64)
     #define SIMDE_X86_SSE2_ENABLE_NATIVE_ALIASES
+//    #define SIMDE_ENABLE_NATIVE_ALIASES
     #include <simde/x86/sse2.h>
 #elif((defined __clang__) ||(__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)))
     #include <cpuid.h>

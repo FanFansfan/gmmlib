@@ -77,6 +77,10 @@ else()
 
     # General optimization options
     -march=${GMMLIB_MARCH}
+    #-march=la464
+    #-mno-lsx
+    #-mno-lasx
+    -Wno-attributes
     -finline-functions
     -fno-short-enums
     -Wa,--noexecstack
